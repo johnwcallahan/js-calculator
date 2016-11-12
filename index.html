@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Javascript Calculator</title>
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+ 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div id="calculator">
+			<div class="row">
+				<div class="col-xs-12">
+					<div id="display-container">
+						<p id="display"></p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="btn-group col-xs-12">
+					<button class="btn clear symbol" id="clear">C</button>
+					<button class="btn symbol" id="plusOrMinus">&plusmn;</button>
+					<button class="btn symbol" id="percentage">&#37;</button>
+					<button class="btn operator op" id="plus">+</button>			
+				</div>
+			</div>
+			<div class="row">
+				<div class="btn-group col-xs-12">
+					<button class="btn digit op" id="seven">7</button>
+					<button class="btn digit op" id="eight">8</button>
+					<button class="btn digit op" id="nine">9</button>
+					<button class="btn operator op left-border" id="minus" >&minus;</button>			
+				</div>
+			</div>
+			<div class="row">
+				<div class="btn-group col-xs-12">
+					<button class="btn digit op" id="four">4</button>
+					<button class="btn digit op" id="five">5</button>
+					<button class="btn digit op" id="six">6</button>
+					<button class="btn operator op left-border" id="multiply">&times;</button>					
+				</div>
+			</div>
+			<div class="row">
+				<div class="btn-group col-xs-12">
+					<button class="btn digit op" id="one">1</button>
+					<button class="btn digit op" id="two">2</button>
+					<button class="btn digit op" id="three">3</button>
+					<button class="btn operator op left-border" id="divide">&divide;</button>					
+				</div>
+			</div>
+			<div class="row">
+				<div class="btn-group col-xs-12">
+					<button class="btn digit op" id="point">.</button> 
+					<button class="btn digit op" id="zero">0</button>
+					<button class="btn left-border" id="equals">=</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
