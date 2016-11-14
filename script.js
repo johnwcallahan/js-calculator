@@ -101,7 +101,7 @@ var Calculator = (function() {
     //Returns true if last item in expression is an operator
     function _isLastOperator() {
         return _expr[_expr.length - 1] == " ";
-    };
+    }
 
     //Returns true if value is a number or a decimal
     var _isNumberOrDecimal = function(value) {
