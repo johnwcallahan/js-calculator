@@ -24,7 +24,7 @@ var ExprEval = (function() {
         for (var i = 0; i < exprArr.length; i++) {
             token = exprArr[i];
 
-            //if it's a number, push it to output
+            //If it's a number, push it to output
             if (Number(token)) {
                 postfix.push(token);
             } else {
@@ -43,7 +43,7 @@ var ExprEval = (function() {
         return postfix.join(" ");
     }
 
-    /* Evaluates postfix expression (e.g. "2 3 4 * +") and returns the result */
+    //Evaluates a postfix expression (e.g. "2 3 4 * +") and returns the result
     function _evalPostfix(expr) {
         var stack = [],
             op1, op2, result;
@@ -55,10 +55,9 @@ var ExprEval = (function() {
             //If it's a number, push it to the stack
             if (Number(token)) {
                 stack.push(Number(token));
-
-                /* Otherwise, remove the two top-most operands on the stack, perform 
-                the corresponding operation and push the result back */
             } else {
+                /* Remove the two top-most operands on the stack, perform the 
+                corresponding operation and push the result back */
                 op2 = stack.pop();
                 op1 = stack.pop();
                 result = _doMath(op1, token, op2);
@@ -68,7 +67,7 @@ var ExprEval = (function() {
         return stack.pop();
     }
 
-    /* Helper function - performs simple arithmetic */
+    //Helper function - performs simple arithmetic
     function _doMath(operand1, operator, operand2) {
         if (operator === "+")
             return operand1 + operand2;
@@ -95,41 +94,56 @@ var ExprEval = (function() {
 //==============================================================================
 var Calculator = (function() {
 
-    var _expr = ""; /* Stores expression being built by user input */
-    var _pressedEquals = true;
-    /* Keeps track of equals button so _expr can be
-                                     reset if needed */
+    var _expr = ""; //Stores expression being built by user input
+    var _pressedEquals = true; /* Keeps track of equals button so _expr can be
+                               reset if needed */
+
+    //Returns true if last item in expression is an operator
+    function _isLastOperator() {
+        return _expr[_expr.length - 1] == " ";
+    };
+
+    //Returns true if value is a number or a decimal
+    var _isNumberOrDecimal = function(value) {
+        return (Number(value) || value == "0" || value == ".");
+    };
+
+    //Returns true if last char and newValue are both decimals
+    var _checkRepeatingDecimal = function(newValue) {
+        return (_expr[_expr.length - 1] == "." && newValue == ".");
+    };
 
     var getExpr = function() {
         return _expr;
     };
 
-    /* Add digit to expression. If equals button has just been pressed, reset
-    expression first. */
+    //Add digit to expression.
     var addDigit = function(digit) {
-        if (_pressedEquals)
-            _expr = "";
-        if (_expr.length >= 24) // MAX length of calculator display
+        if (!_isNumberOrDecimal(digit) ||
+            _expr.length >= 24 || //Max display length
+            _checkRepeatingDecimal(digit))
             return;
+        if (_pressedEquals) //Reset expression if equals was just pressed
+            _expr = "";
         _expr += digit;
         _pressedEquals = false;
     };
 
-    /* Add operator to expression as long as expression isn't empty. If the last
-    item in expression is an operator, replace that operator with the new one */
+    //Add operator to expression
     var addOperator = function(operator) {
         if (!_expr)
             return;
-        else if (isLastOperator())
+        else if (_isLastOperator())
+        //If last item in expression is an operator, delete it first
             _expr = _expr.slice(0, _expr.length - 3);
         _expr += operator;
         _pressedEquals = false;
     };
 
-    /* If last item of _expr is a number, flip its sign (positive -> negative, 
-    negative -> positive) */
-    var plusOrMinus = function() {
-        if (!_expr || isLastOperator())
+    /* If last item of expression is a number, flip its sign 
+    (positive -> negative, negative -> positive) */
+    var posNeg = function() {
+        if (!_expr || _isLastOperator())
             return;
         var exprArr = _expr.split(" ");
         var lastNumber = exprArr.pop();
@@ -142,7 +156,7 @@ var Calculator = (function() {
 
     //If last item of _expr is a number, divide it by 100
     var percentage = function() {
-        if (!_expr || isLastOperator())
+        if (!_expr || _isLastOperator())
             return;
         var exprArr = _expr.split(" ");
         var lastNumber = exprArr.pop();
@@ -150,16 +164,10 @@ var Calculator = (function() {
         _expr = exprArr.join(" ");
     };
 
-    /* Returns true if last item in expression is an operator (operators have
-    trailing whitespace.) */
-    var isLastOperator = function() {
-        return _expr[_expr.length - 1] == " ";
-    };
-
-    /* Calculates the value of _expr if it's not empty or if the last item
-    isn't an operator. */
+    /* Calculates the value of expression, rounds it to 8 decimal places, and 
+    converts it to scientific notation if >= 1 billion */
     var calculate = function() {
-        if (!_expr || isLastOperator())
+        if (!_expr || _isLastOperator())
             return;
         var result = ExprEval.calculate(_expr);
         result = Math.round(result * 10000000) / 10000000;
@@ -170,6 +178,17 @@ var Calculator = (function() {
         _pressedEquals = true;
     };
 
+    //Deletes last item of expression
+    var deleteLast = function() {
+        if (!_expr)
+            return;
+        else if (_isLastOperator()) {
+            _expr = _expr.slice(0, _expr.length - 3);
+        } else {
+            _expr = _expr.slice(0, _expr.length - 1);
+        }
+    };
+
     var clearExpr = function() {
         _expr = "";
     };
@@ -178,9 +197,10 @@ var Calculator = (function() {
         getExpr: getExpr,
         addDigit: addDigit,
         addOperator: addOperator,
-        plusOrMinus: plusOrMinus,
+        posNeg: posNeg,
         percentage: percentage,
         calculate: calculate,
+        deleteLast: deleteLast,
         clearExpr: clearExpr,
     };
 
@@ -220,8 +240,8 @@ $(document).ready(function() {
         renderDisplay();
     });
 
-    $("#plusOrMinus").click(function() {
-        Calculator.plusOrMinus();
+    $("#posNeg").click(function() {
+        Calculator.posNeg();
         renderDisplay();
     });
 
@@ -240,11 +260,37 @@ $(document).ready(function() {
         renderDisplay();
     });
 
+    $(document).keydown(function(event) {
+        if (event.key == "+" || event.key == "-" ||
+            event.key == "*" || event.key == "/") {
+            Calculator.addOperator(" " + event.key + " ");
+            renderDisplay();
+        } else if (event.key == "_") {
+            Calculator.posNeg();
+            renderDisplay();
+        } else if (event.key == "%") {
+            Calculator.percentage();
+            renderDisplay();
+        } else if (event.key == "Enter") {
+            Calculator.calculate();
+            renderDisplay();
+        } else if (event.key == "c") {
+            Calculator.clearExpr();
+            renderDisplay();
+        } else if (event.key == "Backspace") {
+            Calculator.deleteLast();
+            renderDisplay();
+        } else {
+            Calculator.addDigit(event.key);
+            renderDisplay();
+        }
+    });
+
     function renderDisplay() {
         $("#display").html(toHTMLEntities(Calculator.getExpr()));
     }
 
-    /* Converts "*", "-", and "/" to HTML entities */
+    //Converts "*", "-", and "/" to HTML entities
     function toHTMLEntities(expr) {
         var output = "";
         for (var i = 0; i < expr.length; i++) {

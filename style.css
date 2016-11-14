@@ -1,51 +1,47 @@
 body {
-  background-color: #e2eaf3;
+  background-color: #E2EAF3;
 }
 
 #calculator {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 18px;
   width: 257px;
-  margin: 150px auto 0 auto;
-  color: #e1e1e1;
+  margin: 75px auto 0 auto;
+  color: #E1E1E1;
   border-radius: 12px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, .5);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 .btn {
   width: 65px;
   height: 58px;
   border-radius: 0;
-  background-color: #aac3dc;
+  background-color: #AAC3DC;
 }
 
 .digit {
   font-size: 18px;
   color: #525252;
-  border: 1px solid #9ab2cb;
+  border: 1px solid #9AB2CB;
 }
 
 .digit:hover {
-  background-color: #9cb9d6;
+  background-color: #9CB9D6;
 }
 
-.operator,
-.symbol,
-#equals {
+.operator, .symbol, #equals {
   opacity: 1;
-  color: #e1e1e1;
-  background-color: #51779e;
+  color: #E1E1E1;
+  background-color: #51779E;
 }
 
-.operator:hover,
-.symbol:hover,
-#equals:hover {
+.operator:hover, .symbol:hover, #equals:hover {
   color: #525252;
-  background-color: #aac3dc;
+  background-color: #AAC3DC;
 }
 
 .left-border {
-  border-left: 1px solid #9ab2cb;
+  border-left: 1px solid #9AB2CB;
 }
 
 #equals {
@@ -58,7 +54,7 @@ body {
   font-size: 19px;
 }
 
-#dot {
+#point {
   border-bottom-left-radius: 12px;
 }
 
@@ -71,7 +67,7 @@ body {
   border: none;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  background-color: #383f45;
+  background-color: #383F45;
 }
 
 #display {
