@@ -7,3 +7,5 @@ A project created for FreeCodeCamp, fulfilling the following user stories:
 3. I can keep chaining mathematical operations together until I hit the equal button, and the calculator will tell me the correct output.
 
 *Live demo on [CodePen](http://codepen.io/lvb_111/full/WGZzmR/)*
+
+[![js-calc.png](https://s11.postimg.org/ttduhuzqb/js_calc.png)](https://postimg.org/image/rc23alftr/)
