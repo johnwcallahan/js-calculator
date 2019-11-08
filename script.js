@@ -3,6 +3,9 @@
 //==============================================================================
 //Expression evaluator module
 //==============================================================================
+
+// test comment
+
 var ExprEval = (function() {
 
     /* Accepts an infix expression (e.g. "2 + 3 * 4") and returns it in postfix
